@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Base\BaseController;
+use App\Http\Controllers\Post\PostController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,8 @@ Route::name('base.')->group(function() {
     Route::get('/contact', [BaseController::class, 'contact'])->name('contact');
     Route::post('/contact', [BaseController::class, 'sendMessage'])->name('send_mail');
 });
+
+Route::resource('posts', PostController::class)->parameter('posts', 'post:slug');
 
 Auth::routes();
 
