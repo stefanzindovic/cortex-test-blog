@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\Base;
 
-use App\Http\Controllers\Controller;
+use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class BaseController extends Controller
 {
     public function index() {
-        return view('blog.index');
+
+        $posts = Post::orderBy('created_at', 'ASC')->paginate(4);
+        return view('blog.index', compact('posts'));
     }
 
     public function about() {
