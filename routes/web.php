@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Base\BaseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('blog.index');
+});
+
+Route::name('base.')->group(function() {
+    Route::get('/', [BaseController::class, 'index'])->name('index');
+    Route::get('/about', [BaseController::class, 'about'])->name('about');
+    Route::get('/contact', [BaseController::class, 'contact'])->name('contact');
 });
 
 Auth::routes();
