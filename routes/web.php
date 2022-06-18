@@ -23,6 +23,7 @@ Route::name('base.')->group(function() {
     Route::get('/', [BaseController::class, 'index'])->name('index');
     Route::get('/about', [BaseController::class, 'about'])->name('about');
     Route::get('/contact', [BaseController::class, 'contact'])->name('contact');
+    Route::post('/contact', [BaseController::class, 'sendMessage'])->name('send_mail');
 });
 
 Auth::routes();

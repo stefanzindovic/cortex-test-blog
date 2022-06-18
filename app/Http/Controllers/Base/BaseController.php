@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Base;
 
 use App\Models\Post;
+use App\Mail\ContactMail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\ContactRequest;
 
 class BaseController extends Controller
 {
@@ -20,5 +23,10 @@ class BaseController extends Controller
 
     public function contact() {
         return view('blog.contact');
+    }
+
+    public function sendMessage(ContactRequest $request) {
+        Mail::to('my@mail.com')->send(new ContactMail($request->name, $request->email, $request->phone, $request->message));
+        return to_route('base.index');
     }
 }
