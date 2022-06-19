@@ -93,6 +93,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        if($post->user->id != auth()->user()->id && !auth()->user()->is_admin) {
+            return to_route('dashboard');
+        }
         return view('dashboard.edit', compact('post'));
     }
 
@@ -105,6 +108,10 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+
+        if($post->user->id != auth()->user()->id && !auth()->user()->is_admin) {
+            return to_route('dashboard');
+        }
 
         $request->validate([
             'title' => ['required', 'min:5', 'max:256'],

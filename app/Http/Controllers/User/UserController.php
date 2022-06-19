@@ -21,6 +21,10 @@ class UserController extends Controller
 
     public function update(Request $request, User $user) {
 
+        if($post->user->id != auth()->user()->id && !auth()->user()->is_admin) {
+            return to_route('dashboard');
+        }
+
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'about' => ['required', 'string', 'min:5', 'max:1024'],
