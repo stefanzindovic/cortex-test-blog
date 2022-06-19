@@ -13,7 +13,7 @@ class UserController extends Controller
         $this->middleware('auth');
     }
     public function edit(User $user) {
-        if($user->id != auth()->user()->id) {
+        if($user->id != auth()->user()->id && !auth()->user()->is_admin) {
             return to_route('dashboard');
         }
         return view('users.edit', compact('user'));
@@ -40,5 +40,15 @@ class UserController extends Controller
         ]);
 
         return to_route('dashboard');
+    }
+
+    public function destroy(User $user) {
+        if(!auth()->user()->is_admin) {
+            return to_route('dashboard');
+        }
+
+        $user->delete();
+
+        return to_route('admin.users');
     }
 }

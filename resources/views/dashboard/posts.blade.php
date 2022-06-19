@@ -6,7 +6,7 @@
 
 @section('body')
     @if (count($posts) == 0)
-        <h6 class="lead p-3">Nema kreiranih postova</h6>
+        <h6 class="lead p-3">No posts</h6>
     @else
     <div class="p-2">
         <table class="table table-dark">

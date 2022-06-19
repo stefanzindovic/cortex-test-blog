@@ -44,6 +44,11 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{{ route('base.index') }}" class="nav-link">Home</a>
       </li>
+      @if (auth()->user()->is_admin)
+        <li class="nav-item d-none d-sm-inline-block">
+          <a href="{{ route('admin.index') }}" class="nav-link">Admin</a>
+        </li>
+      @endif
       <li class="nav-item d-none d-sm-inline-block">
        <form action="{{ route('logout') }}" method="POST">
             @csrf
