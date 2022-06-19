@@ -12,7 +12,7 @@ class PostController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('show');
     }
 
     /**
@@ -22,7 +22,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::where('user_id', auth()->user()->id)->get();
+        $posts = Post::orderBy('created_at', 'DESC')->where('user_id', auth()->user()->id)->get();
         return view('dashboard.posts', compact('posts'));
     }
 
@@ -136,8 +136,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return to_route('posts.index');
     }
 }

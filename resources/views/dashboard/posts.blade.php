@@ -24,9 +24,14 @@
                     <td>{{ $post->title }}</td>
                     <td><a class="text-white text-decoration-underline" href="{{ route('posts.show', $post->slug) }}">Visit</a></td>
                     <td>{{ $post->created_at->format('d/m/Y') }}</td>
-                    <td>
+                    <td class="d-flex align-items-center pl-2">
                         <a class="text-white p-1 text-decoration-underline" href="{{ route('posts.edit', $post->slug) }}">Edit</a>
-                        <a class="text-danger text-decoration-underline p-1" href="#">Delete</a>
+                       <form action="{{ route('posts.destroy', $post->slug) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+
+                            <input type="submit" class="border-0 bg-transparent text-danger" value="Delete">
+                        </form>
                     </td>
                   </tr>
                 @endforeach
