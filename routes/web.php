@@ -28,7 +28,7 @@ Route::name('base.')->group(function() {
     Route::post('/contact', [BaseController::class, 'sendMessage'])->name('send_mail');
 });
 
-Route::get('/controll', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/control', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::resource('posts', PostController::class)->parameter('posts', 'post:slug');
 

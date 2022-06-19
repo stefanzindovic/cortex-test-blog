@@ -91,9 +91,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        return view('dashboard.edit', compact('post'));
     }
 
     /**
@@ -103,9 +103,31 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+
+        $request->validate([
+            'title' => ['required', 'min:5', 'max:256'],
+            'short_desc' => ['required', 'min:30', 'max:512'],
+            'content' => ['required', 'min:64']
+           ]);
+
+        $coverPhoto = $post->picture;
+
+        if($request->hasFile('cover_picture')) {
+            $request->cover_picture->store('public/cover_pictures');
+            $coverPhoto = 'cover_pictures/' . $request->cover_picture->hashName();
+        }
+
+       $post->update([
+        'title' =>$request->title,
+        'slug' => Str::slug($request->title, '-'),
+        'short_desc' => $request->short_desc,
+        'content' => $request->content,
+        'picture' => $coverPhoto,
+    ]);
+
+    return to_route('posts.index');
     }
 
     /**
