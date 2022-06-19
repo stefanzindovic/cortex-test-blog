@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Base\BaseController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Post\PostController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -16,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('blog.index');
+Route::get('/test', function () {
+    return view('dashboard.index');
 });
 
 Route::name('base.')->group(function() {
@@ -26,6 +27,8 @@ Route::name('base.')->group(function() {
     Route::get('/contact', [BaseController::class, 'contact'])->name('contact');
     Route::post('/contact', [BaseController::class, 'sendMessage'])->name('send_mail');
 });
+
+Route::get('/controll', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::resource('posts', PostController::class)->parameter('posts', 'post:slug');
 

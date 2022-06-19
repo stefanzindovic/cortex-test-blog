@@ -70,7 +70,7 @@ class RegisterController extends Controller
         $profilePicturePath = null;
 
         if(array_key_exists('profile_picture', $data)) {
-            $profilePicturePath = $data['profile_picture']->store('profile_pictures');
+            $data['profile_picture']->store('public/profile_pictures');
         }
 
         return User::create([
@@ -78,7 +78,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'about' => $data['about'],
-            'picture' => $profilePicturePath,
+            'picture' => 'profile_pictures/' . $data['profile_picture']->hashName(),
         ]);
     }
 }
