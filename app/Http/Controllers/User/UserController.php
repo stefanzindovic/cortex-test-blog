@@ -21,7 +21,7 @@ class UserController extends Controller
 
     public function update(Request $request, User $user) {
 
-        if($post->user->id != auth()->user()->id && !auth()->user()->is_admin) {
+        if($user->id != auth()->user()->id && !auth()->user()->is_admin) {
             return to_route('dashboard');
         }
 
