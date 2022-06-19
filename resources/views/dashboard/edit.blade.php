@@ -47,7 +47,7 @@
                             <label for="content" class="col-md-4 col-form-label text-md-end">{{ __('Content') }}</label>
 
                             <div class="col-md-6">
-                                <textarea name="content" class="form-control @error('content') is-invalid @enderror" required id="content" rows="3">{{ old('content', $post->content) }}</textarea>
+                                <textarea name="content" class="form-control @error('content') is-invalid @enderror" id="editor" rows="3">{{ old('content', $post->content) }}</textarea>
                                 @error('content')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -75,4 +75,14 @@
         </div>
     </div>
 </div>
+<script>
+    ClassicEditor
+            .create( document.querySelector( '#editor' ) )
+            .then( editor => {
+                    console.log( editor );
+            } )
+            .catch( error => {
+                    console.error( error );
+            } );
+</script>
 @endsection

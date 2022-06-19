@@ -48,16 +48,6 @@
                             <div class="col-md-6">
                                 {{-- <textarea name="content" class="form-control @error('content') is-invalid @enderror" required id="content" rows="3">{{ old('content') }}</textarea> --}}
                                 <textarea name="content" rows="3" class="form-control @error('content') is-invalid @enderror" id="editor">{{ old('content') }}</textarea>
-                                <script>
-                                    ClassicEditor
-                                            .create( document.querySelector( '#editor' ) )
-                                            .then( editor => {
-                                                    console.log( editor );
-                                            } )
-                                            .catch( error => {
-                                                    console.error( error );
-                                            } );
-                                </script>
                                 @error('content')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -85,4 +75,14 @@
         </div>
     </div>
 </div>
+<script>
+    ClassicEditor
+            .create( document.querySelector( '#editor' ) )
+            .then( editor => {
+                    console.log( editor );
+            } )
+            .catch( error => {
+                    console.error( error );
+            } );
+</script>
 @endsection
