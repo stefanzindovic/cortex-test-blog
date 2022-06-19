@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers\Post;
 
-use App\Http\Controllers\Controller;
 use App\Models\Post;
+use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +22,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::where('user_id', auth()->user()->id)->get();
+        return view('dashboard.posts', compact('posts'));
     }
 
     /**
@@ -25,7 +33,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.create');
     }
 
     /**
@@ -36,7 +44,34 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+       $request->validate([
+        'title' => ['required', 'min:5', 'max:256'],
+        'short_desc' => ['required', 'min:30', 'max:512'],
+        'content' => ['required', 'min:64']
+       ]);
+
+       $coverPhoto = null;
+
+       if($request->hasFile('cover_picture')) {
+            $request->cover_picture->store('public/cover_pictures');
+            $coverPhoto = 'cover_pictures/' . $request->cover_picture->hashName();
+
+       }
+
+
+       Post::create([
+            'title' =>$request->title,
+            'slug' => Str::slug($request->title, '-'),
+            'short_desc' => $request->short_desc,
+            'content' => $request->content,
+            'user_id' => auth()->user()->id,
+            'picture' => $coverPhoto,
+       ]);
+
+    
+
+       return to_route('dashboard');
     }
 
     /**

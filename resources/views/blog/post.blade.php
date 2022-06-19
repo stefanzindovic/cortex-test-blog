@@ -8,6 +8,12 @@
     {{ $post->title }}
 @endsection
 
+@if($post->picture != null)
+@section('cover_picture')
+    {{ 'storage/' . $post->picture }}
+@endsection
+@endif
+
 @section('body')
 <article class="mb-4">
     <div class="container px-4 px-lg-5">

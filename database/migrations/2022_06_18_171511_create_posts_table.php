@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('short_desc');
             $table->text('content');
             $table->string('picture')->nullable();
-            $table->foreignIdFor(User::class, 'user_id');
+            $table->foreignIdFor(User::class, 'user_id')->onDelete('cascade');
             $table->timestamps();
         });
     }

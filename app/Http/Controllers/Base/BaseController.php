@@ -13,7 +13,7 @@ class BaseController extends Controller
 {
     public function index() {
 
-        $posts = Post::orderBy('created_at', 'ASC')->paginate(4);
+        $posts = Post::orderBy('created_at', 'DESC')->paginate(4);
         return view('blog.index', compact('posts'));
     }
 

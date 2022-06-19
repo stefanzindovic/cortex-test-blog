@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cortex Blog | Dashboard</title>
+  <title>Cortex Blog | @yield('title')</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -115,7 +115,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index2.html" class="nav-link">
+                <a href="{{ route('posts.create') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Create post</p>
                 </a>
@@ -135,7 +135,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Dashboard</h1>
+            <h1 class="m-0">@yield('title')</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -149,6 +149,8 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
+
+    @yield('body')
    
     <!-- /.content -->
   </div>
